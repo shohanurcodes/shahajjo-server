@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: sahajjo-api
+    runtime: node
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: node dist/index.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: DB_NAME
+        value: sahajjo
+      - key: CLIENT_ORIGINS
+        sync: false
+      - key: BETTER_AUTH_JWKS_URL
+        sync: false
+      - key: JWT_ISSUER
+        value: sahajjo-client
+      - key: JWT_AUDIENCE
+        value: sahajjo-api
