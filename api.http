@@ -1,0 +1,63 @@
+@baseUrl = http://localhost:5000
+# Paste a JWT from the client (authClient.token()) to test protected routes.
+@token = replace-with-better-auth-jwt
+
+### Health
+GET {{baseUrl}}/api/health
+
+### Six most recent upcoming events (home page)
+GET {{baseUrl}}/api/events/upcoming?limit=6
+
+### Filter upcoming events
+GET {{baseUrl}}/api/events/upcoming?type=Plantation&q=dhaka
+
+### Event details
+GET {{baseUrl}}/api/events/REPLACE_WITH_EVENT_ID
+
+### Create an event
+POST {{baseUrl}}/api/events
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "Winter Clothes Distribution",
+  "description": "Collecting and distributing warm clothes for families in Mirpur 10.",
+  "eventType": "Winter Relief",
+  "thumbnail": "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1200",
+  "location": "Mirpur 10, Dhaka",
+  "date": "2027-01-15T12:00:00.000Z"
+}
+
+### My events
+GET {{baseUrl}}/api/events/mine
+Authorization: Bearer {{token}}
+
+### Update an event
+PATCH {{baseUrl}}/api/events/REPLACE_WITH_EVENT_ID
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "Winter Clothes Distribution — Day 2",
+  "description": "Second collection day for the winter clothes drive in Mirpur 10.",
+  "eventType": "Winter Relief",
+  "thumbnail": "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1200",
+  "location": "Mirpur 10, Dhaka",
+  "date": "2027-01-16T12:00:00.000Z"
+}
+
+### Join an event
+POST {{baseUrl}}/api/events/REPLACE_WITH_EVENT_ID/join
+Authorization: Bearer {{token}}
+
+### Joined events
+GET {{baseUrl}}/api/joined-events
+Authorization: Bearer {{token}}
+
+### Profile stats
+GET {{baseUrl}}/api/me/stats
+Authorization: Bearer {{token}}
+
+### Delete an event
+DELETE {{baseUrl}}/api/events/REPLACE_WITH_EVENT_ID
+Authorization: Bearer {{token}}
