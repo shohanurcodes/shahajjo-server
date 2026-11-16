@@ -24,9 +24,21 @@ npm run dev
 | Script | What it does |
 | --- | --- |
 | `npm run dev` | Start with `tsx watch` on `PORT` (default 5000) |
+| `npm run dev:db` | Start a throwaway in-memory MongoDB on port 27017 for local testing |
+| `npm run seed` | Insert eight demo events into the configured database (idempotent) |
 | `npm run build` | Compile TypeScript to `dist/` |
 | `npm start` | Run the compiled server |
 | `npm run typecheck` | Type-check without emitting files |
+
+### Local development without an Atlas account
+
+```bash
+npm run dev:db   # terminal 1 — in-memory MongoDB on mongodb://127.0.0.1:27017
+npm run dev      # terminal 2 — API on port 5000
+npm run seed     # terminal 3 — optional demo events
+```
+
+`dev:db` keeps everything in memory, so data disappears when the process stops. In the client repository, leave `MONGODB_URI` unset (or pointed at `mongodb://127.0.0.1:27017`) so BetterAuth uses the same in-memory instance.
 
 ## Environment variables
 
