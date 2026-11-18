@@ -2,8 +2,9 @@ import cors from "cors";
 import express from "express";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
-import { clientOrigins, env } from "./config/env";
+import { env } from "./config/env";
 import { HttpError } from "./lib/http-error";
+import { isAllowedBrowserOrigin } from "./lib/origins";
 import { errorHandler } from "./middleware/error";
 import { eventsRouter, meRouter } from "./routes";
 
@@ -17,7 +18,11 @@ app.use(
   cors({
     origin(origin, callback) {
       // Requests without an Origin header (curl, health checks) are allowed.
-      if (!origin || clientOrigins.includes(origin)) {
+      if (!origin) {
+        callback(null, true);
+        return;
+      }
+      if (isAllowedBrowserOrigin(origin)) {
         callback(null, true);
         return;
       }

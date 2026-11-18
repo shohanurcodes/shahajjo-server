@@ -2,7 +2,12 @@
 
 Express 5 + TypeScript + MongoDB API for **Sahajjo**, a community-driven platform where people create, join and manage local social-service events.
 
-The Next.js client lives in a separate repository. This API is stateless: every protected request carries a BetterAuth-issued JWT as a Bearer token.
+The Next.js client lives in a separate repository:
+- **Client Live Site:** <https://shahajjo-client.vercel.app>
+- **Client GitHub Repository:** <https://github.com/shohanurcodes/shahajjo-client>
+- **Server GitHub Repository:** <https://github.com/shohanurcodes/shahajjo-server>
+
+This API is stateless: every protected request carries a BetterAuth-issued JWT as a Bearer token.
 
 ## Tech
 
