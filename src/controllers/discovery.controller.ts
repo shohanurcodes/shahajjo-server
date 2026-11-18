@@ -31,15 +31,15 @@ export async function getUpcomingEvents(req: Request, res: Response): Promise<vo
     { $sort: { date: 1, createdAt: -1 } },
   ];
 
-  if (query.limit) {
-    pipeline.push({ $limit: query.limit });
-  }
-
   let docs: EventWithMeta[];
 
   try {
     const events = await eventsCollection();
-    docs = await events.aggregate<EventWithMeta>(pipeline).toArray();
+    const cursor = events.aggregate<EventWithMeta>(pipeline);
+    if (query.limit) {
+      cursor.limit(query.limit);
+    }
+    docs = await cursor.toArray();
   } catch {
     console.error("Database unavailable; serving public fallback events.");
     const term = query.q ? new RegExp(escapeRegex(query.q), "i") : null;
